@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import org.apache.flink.api.java.ExecutionEnvironment;
 import org.apache.flink.api.java.io.PrintingOutputFormat;
+import org.apache.flink.api.java.utils.ParameterTool;
 
 public class BatchTransformationsSample {
 
