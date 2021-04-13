@@ -1,5 +1,6 @@
 package com.apache.flink.training;
 
+import com.apache.flink.training.mappers.CountConsecutiveGoals;
 import com.apache.flink.training.mappers.FromEventMessageToMessage;
 import com.apache.flink.training.mappers.FromStringToGoalTeam;
 import com.apache.flink.training.model.EventMessage;
@@ -10,6 +11,7 @@ import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.streaming.api.functions.sink.PrintSinkFunction;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaProducer;
 import org.apache.flink.util.OutputTag;
@@ -33,6 +35,8 @@ public class StreamValueStateSample {
                                                                                    properties));
 
         DataStream<GoalTeam> goals = messages.map(new FromStringToGoalTeam());
+
+        goals.keyBy(gt -> gt.getTeamName()).flatMap(new CountConsecutiveGoals()).addSink(new PrintSinkFunction<>());
 
         env.disableOperatorChaining();
 

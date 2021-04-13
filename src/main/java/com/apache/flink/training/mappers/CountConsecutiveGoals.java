@@ -1,0 +1,44 @@
+package com.apache.flink.training.mappers;
+
+import com.apache.flink.training.model.GoalTeam;
+import java.util.Objects;
+import org.apache.flink.api.common.functions.RichFlatMapFunction;
+import org.apache.flink.api.common.state.ValueState;
+import org.apache.flink.api.common.state.ValueStateDescriptor;
+import org.apache.flink.api.common.typeinfo.TypeHint;
+import org.apache.flink.api.common.typeinfo.TypeInformation;
+import org.apache.flink.configuration.Configuration;
+import org.apache.flink.util.Collector;
+
+public class CountConsecutiveGoals extends RichFlatMapFunction<GoalTeam, GoalTeam> {
+
+    private transient ValueState<GoalTeam> totalGoals;
+
+    @Override
+    public void open(Configuration parameters) throws Exception {
+        ValueStateDescriptor<GoalTeam> descriptor = new ValueStateDescriptor<GoalTeam>("goals",
+                                                                                       TypeInformation.of(new TypeHint<GoalTeam>() {
+                                                                                       }));
+        totalGoals = getRuntimeContext().getState(descriptor);
+    }
+
+    @Override
+    public void flatMap(GoalTeam goalTeam, Collector<GoalTeam> collector) throws Exception {
+
+        GoalTeam currentGoalTeam = totalGoals.value();
+
+        if (Objects.nonNull(currentGoalTeam)) {
+            currentGoalTeam.setGoals(currentGoalTeam.getGoals() + goalTeam.getGoals());
+        } else {
+            currentGoalTeam = goalTeam;
+        }
+
+        totalGoals.update(currentGoalTeam);
+
+        if (goalTeam.getGoals() == 0) {
+            collector.collect(currentGoalTeam);
+            totalGoals.clear();
+        }
+
+    }
+}
