@@ -16,4 +16,8 @@ public class EventMessage {
     long timestamp;
 
     String message;
+
+    String severity;
+
+    String id;
 }

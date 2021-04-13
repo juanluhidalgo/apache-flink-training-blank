@@ -8,6 +8,6 @@ public class Double implements MapFunction<Integer, Integer> {
 
     @Override
     public Integer map(Integer number) throws Exception {
-        return number;
+        return number * 2;
     }
 }

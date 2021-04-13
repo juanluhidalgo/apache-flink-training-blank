@@ -1,11 +1,11 @@
-{"message": "First","timestamp": 1616441428937}
-{"message": "Second","timestamp": 1616441428938}
-{"message": "Too Late","timestamp": 1616441396890}
-{"message": "Forth","timestamp": 1616441428940}
-{"message": "Third","timestamp": 1616441428939}
-{"message": "Fifth","timestamp": 1616441528939}
-{"message": "Sixth","timestamp": 1616441928939}
-{"message": "Seventh","timestamp": 1616442743768}
-{"message": "Eight","timestamp": 1616442743769}
-{"message": "Ninth","timestamp": 1616442793103}
-{"message": "Alert","timestamp": 1616441428937}
+{"message": "First","timestamp": 1616441428937, "severity": "ERROR"}
+{"message": "Second","timestamp": 1616441428938, "severity": "INFO"}
+{"message": "Too Late","timestamp": 1616441396890, "severity": "ERROR"}
+{"message": "Forth","timestamp": 1616441428940, "severity": "ERROR"}
+{"message": "Third","timestamp": 1616441428939, "severity": "ERROR"}
+{"message": "Fifth","timestamp": 1616441528939, "severity": "ERROR"}
+{"message": "Sixth","timestamp": 1616441928939, "severity": "ERROR"}
+{"message": "Seventh","timestamp": 1616442743768, "severity": "ERROR"}
+{"message": "Eight","timestamp": 1616442743769, "severity": "ERROR"}
+{"message": "Ninth","timestamp": 1616442793103, "severity": "ERROR"}
+{"message": "Alert","timestamp": 1616441428937, "severity": "ERROR"}
