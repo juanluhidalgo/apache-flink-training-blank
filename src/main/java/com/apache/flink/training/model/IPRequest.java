@@ -16,4 +16,5 @@ public class IPRequest {
     long timestamp;
 
     String ip;
+
 }
