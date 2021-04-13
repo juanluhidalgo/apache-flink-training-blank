@@ -1,11 +1,11 @@
-{"message": "First","timestamp": 1616441428937, "severity": "ERROR"}
-{"message": "Second","timestamp": 1616441428938, "severity": "INFO"}
-{"message": "Too Late","timestamp": 1616441396890, "severity": "ERROR"}
-{"message": "Forth","timestamp": 1616441428940, "severity": "ERROR"}
-{"message": "Third","timestamp": 1616441428939, "severity": "ERROR"}
-{"message": "Fifth","timestamp": 1616441528939, "severity": "ERROR"}
-{"message": "Sixth","timestamp": 1616441928939, "severity": "ERROR"}
-{"message": "Seventh","timestamp": 1616442743768, "severity": "ERROR"}
-{"message": "Eight","timestamp": 1616442743769, "severity": "ERROR"}
-{"message": "Ninth","timestamp": 1616442793103, "severity": "ERROR"}
-{"message": "Alert","timestamp": 1616441428937, "severity": "ERROR"}
+{"message": "First","timestamp": 1616441428937, "severity": "ERROR" ,"id": "myId"}
+{"message": "Second","timestamp": 1616441428938, "severity": "INFO" ,"id": "myId2"}
+{"message": "Too Late","timestamp": 1616441396890, "severity": "ERROR" ,"id": "myId"}
+{"message": "Forth","timestamp": 1616441428940, "severity": "ERROR" ,"id": "myId2"}
+{"message": "Third","timestamp": 1616441428939, "severity": "ERROR" ,"id": "myId"}
+{"message": "Fifth","timestamp": 1616441528939, "severity": "ERROR" ,"id": "myId"}
+{"message": "Sixth","timestamp": 1616441928939, "severity": "ERROR" ,"id": "myId"}
+{"message": "Seventh","timestamp": 1616442743768, "severity": "ERROR" ,"id": "myId"}
+{"message": "Eight","timestamp": 1616442743769, "severity": "ERROR" ,"id": "myId"}
+{"message": "Ninth","timestamp": 1616442793103, "severity": "ERROR" ,"id": "myId"}
+{"message": "Alert","timestamp": 1616441428937, "severity": "ERROR" ,"id": "myId"}

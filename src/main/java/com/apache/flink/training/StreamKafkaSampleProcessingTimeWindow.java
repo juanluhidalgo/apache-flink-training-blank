@@ -3,6 +3,7 @@ package com.apache.flink.training;
 
 import com.apache.flink.training.model.EventMessage;
 import com.apache.flink.training.serialiazer.EventMessageDeserializer;
+import com.apache.flink.training.window.ReorderMessage;
 import java.util.Properties;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -34,8 +35,10 @@ public class StreamKafkaSampleProcessingTimeWindow {
                                                                                    new EventMessageDeserializer(),
                                                                                    properties)).name("Read messages");
 
-        //messages.keyBy( m -> m.getId()).window(TumblingProcessingTimeWindows.of(Time.seconds(30))).process()
-
+        messages.keyBy(m -> m.getId()).window(TumblingProcessingTimeWindows.of(Time.seconds(30))).process(new ReorderMessage()).addSink(
+                new FlinkKafkaProducer<EventMessage>("myOutputTopic",
+                                                     new EventMessageDeserializer(),
+                                                     properties)).name("Produce sorted messages");
 
         env.disableOperatorChaining();
 
