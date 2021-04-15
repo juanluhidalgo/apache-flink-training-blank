@@ -3,21 +3,16 @@ package com.apache.flink.training.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@EqualsAndHashCode
-public class EventMessage {
+public class CommandReportTeam {
 
-    long timestamp;
+    String teamName;
 
-    String message;
+    String command;
 
-    String severity;
-
-    String id;
 }

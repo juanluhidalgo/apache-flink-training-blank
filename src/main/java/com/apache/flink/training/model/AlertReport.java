@@ -1,5 +1,6 @@
 package com.apache.flink.training.model;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,13 +12,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @EqualsAndHashCode
-public class EventMessage {
-
-    long timestamp;
-
-    String message;
-
-    String severity;
+public class AlertReport {
 
     String id;
+
+    List<EventMessage> eventMessages;
+
+    long updatedAt;
+
 }

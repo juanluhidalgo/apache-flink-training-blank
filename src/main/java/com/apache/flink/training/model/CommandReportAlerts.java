@@ -11,13 +11,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @EqualsAndHashCode
-public class EventMessage {
-
-    long timestamp;
-
-    String message;
-
-    String severity;
+public class CommandReportAlerts {
 
     String id;
+
+    String action;
+
 }

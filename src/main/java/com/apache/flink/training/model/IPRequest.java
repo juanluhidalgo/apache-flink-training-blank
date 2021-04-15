@@ -11,13 +11,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @EqualsAndHashCode
-public class EventMessage {
+public class IPRequest {
 
     long timestamp;
 
-    String message;
+    String ip;
 
-    String severity;
-
-    String id;
 }

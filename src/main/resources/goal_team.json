@@ -1,0 +1,11 @@
+{"teamName": "Real Madrid", "goals": 10}
+{"teamName": "Real Madrid", "goals": 12}
+{"teamName": "Barcelona", "goals": 5}
+{"teamName": "Barcelona", "goals": 7}
+{"teamName": "Barcelona", "goals": 3}
+{"teamName": "Barcelona", "goals": 0}
+{"teamName": "Real Madrid", "goals": 12}
+{"teamName": "Real Madrid", "goals": 0}
+
+{"teamName": "Real Madrid", "command": "REPORT"}
+{"teamName": "Barcelona", "command": "REPORT"}
