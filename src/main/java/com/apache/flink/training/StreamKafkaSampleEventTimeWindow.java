@@ -44,7 +44,7 @@ public class StreamKafkaSampleEventTimeWindow {
         DataStream<EventMessage> eventMessageWithWatermark = messages.assignTimestampsAndWatermarks(new EventMessageWatermarkStrategy());
 
         SingleOutputStreamOperator<EventMessage> eventMessages = eventMessageWithWatermark.keyBy(em -> em.getId())
-                .window(TumblingEventTimeWindows.of(Time.seconds(5)))
+                .window(TumblingEventTimeWindows.of(Time.seconds(30)))
                 .allowedLateness(Time.seconds(30))
                 .sideOutputLateData(late)
                 .process(new ReorderMessage());
