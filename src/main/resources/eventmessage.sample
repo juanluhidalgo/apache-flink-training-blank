@@ -1,5 +1,5 @@
 {"message": "First","timestamp": 1616441428937, "severity": "ERROR" ,"id": "myId"}
-{"message": "Second","timestamp": 1616441428938, "severity": "INFO" ,"id": "myId"}
+{"message": "Second","timestamp": 1616441428938, "severity": "ERROR" ,"id": "myId2"}
 {"message": "Too Late","timestamp": 1615341396890, "severity": "FATAL" ,"id": "myId"}
 {"message": "Forth","timestamp": 1616441428940, "severity": "ERROR" ,"id": "myId2"}
 {"message": "Third","timestamp": 1616441428939, "severity": "ERROR" ,"id": "myId"}

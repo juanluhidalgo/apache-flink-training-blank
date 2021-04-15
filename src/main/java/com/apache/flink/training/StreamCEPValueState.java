@@ -1,7 +1,13 @@
 package com.apache.flink.training;
 
+import com.apache.flink.training.mappers.AggregateAlertsCoFlatMap;
+import com.apache.flink.training.model.AlertReport;
+import com.apache.flink.training.model.CommandReportAlerts;
+import com.apache.flink.training.model.CommandReportTeam;
 import com.apache.flink.training.model.EventMessage;
 import com.apache.flink.training.pattern.FromEventMessageToAlertEventMessage;
+import com.apache.flink.training.serialiazer.CommandReportAlertsDeserializer;
+import com.apache.flink.training.serialiazer.CommandReportTeamDeserializer;
 import com.apache.flink.training.serialiazer.EventMessageDeserializer;
 import java.util.Properties;
 import org.apache.flink.cep.CEP;
@@ -14,7 +20,7 @@ import org.apache.flink.streaming.api.functions.sink.PrintSinkFunction;
 import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer;
 
-public class StreamCEP {
+public class StreamCEPValueState {
 
 
     public static void main(String[] args) throws Exception {
@@ -32,7 +38,27 @@ public class StreamCEP {
                                                                                  new EventMessageDeserializer(),
                                                                                  properties)).name("Read messages");
 
-        Pattern<EventMessage, ?> pattern = Pattern.<EventMessage>begin("errors").where(new SimpleCondition<EventMessage>() {
+        DataStream<CommandReportAlerts> commands = env.addSource(new FlinkKafkaConsumer<CommandReportAlerts>("myCommandTopic",
+                                                                                                             new CommandReportAlertsDeserializer(),
+                                                                                                             properties));
+
+        PatternStream<EventMessage> patternStream = CEP.pattern(events,
+                                                                getEventMessagePattern()).inProcessingTime();
+
+        DataStream<EventMessage> alerts = patternStream.process(new FromEventMessageToAlertEventMessage());
+
+        DataStream<AlertReport> alertReportDataStream = alerts.keyBy(a -> a.getId()).connect(commands.keyBy(c -> c.getId()))
+                .flatMap(new AggregateAlertsCoFlatMap());
+
+        
+
+        env.disableOperatorChaining();
+
+        env.execute("Streaming App");
+    }
+
+    private static Pattern<EventMessage, ?> getEventMessagePattern() {
+        return Pattern.<EventMessage>begin("errors").where(new SimpleCondition<EventMessage>() {
             @Override
             public boolean filter(EventMessage eventMessage) throws Exception {
                 return "ERROR".equals(eventMessage.getSeverity());
@@ -43,14 +69,5 @@ public class StreamCEP {
                 return "FATAL".equals(eventMessage.getSeverity());
             }
         }).optional().within(Time.seconds(10));
-
-        PatternStream<EventMessage> patternStream = CEP.pattern(events,
-                                                                pattern).inProcessingTime();
-
-        patternStream.process(new FromEventMessageToAlertEventMessage()).addSink(new PrintSinkFunction<>());
-
-        env.disableOperatorChaining();
-
-        env.execute("Streaming App");
     }
 }
